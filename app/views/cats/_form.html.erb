@@ -1,0 +1,37 @@
+<head>
+	<title>
+		Cats | Edit
+	</title>
+</head>
+<body>
+	<p><%= link_to ("Back to the cats index"), "/cats"  %><p>
+	<h1><%=@cat.name %></h1>
+		<form action="/cats/<%=@cat.id%>" method="POST">
+		<% if @cat.persisted? %>
+    	<input type="hidden" name="_method" value="PATCH" >
+		<% end %>
+			<label for="cat_name">Name</label>
+			<input type="text" name="cat[name]" value="<%= @cat.name %>" >
+
+			<label for="cat_color">Color</label>
+			<select name="cat[color]">
+				<option value="calico" <%="selected" if @cat.color=="calico"%>>Calico</option>
+				<option value="tabby" <%="selected" if @cat.color=="tabby"%>>Tabby</option>
+				<option value="solid"<%="selected" if @cat.color=="solid"%>>Solid</option>
+			</select>
+
+			<label for="cat_birthdate">Birthdate</label>
+			<input type="date" name="cat[birthdate]" value="<%= @cat.birthdate %>" >
+
+			<label for="cat_age">Age</label>
+			<input type="number" name="cat[age]" min="0" max="1000" value="<%= @cat.age %>" >
+
+			<label for="cat_sex">Sex</label>
+			<select name="cat[sex]">
+				<option value="M"<%="selected" if @cat.sex=="M"%>>Male</option>
+				<option value="F"<%="selected" if @cat.sex=="F"%>>Female</option>
+			</select>
+
+			<input type="submit" value:"Edit this cat!">
+		</form>
+</body>

@@ -1,0 +1,21 @@
+<head>
+	<title>
+		Cats | Index
+	</title>
+</head>
+<body>
+	<h1>This is the Index</h1>
+	<p><%= link_to ("Click here to create a new cat"), "cats/new"  %><p>
+	<table>
+	<% @cats.each do |cat| %>
+		<tr>
+			<td><%= link_to ("Name: #{cat.name}"), cat_url(cat) %></td>
+			<td>Color: <%= cat.color%></td>
+			<td>Age: <%= cat.age%></td>
+			<td>Sex: <%= cat.sex%></td>
+			<td>Birthdate: <%= Date.parse(cat.birthdate)%></td>
+		</tr>
+	<% end %>
+	</table>
+</body>
+

@@ -1,0 +1,19 @@
+<head>
+	<title>
+		Rentals
+	</title>
+</head>
+<body>
+	<h1>These are our cat rentals - index</h1>
+
+				<% @cat_rental_requests.each do |rental| %>
+				<p>Our cat <%=rental.cat.name%> is rented:</p>
+				<ul>
+					<li>From <%=rental.start_date%></li>
+					<li>Until <%=rental.end_date%></li>
+				</ul>
+				<% end %>
+	<p><%= link_to "Rent a Cat", new_cat_rental_request_path %>
+
+
+</body>

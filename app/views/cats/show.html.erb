@@ -1,0 +1,29 @@
+<head>
+	<title>
+		Cats | Show
+	</title>
+</head>
+<body>
+	<h1>This is the Show view</h1>
+	<p><%= link_to ("Back to the cats index"), "/cats"  %><p>
+	<table>
+		<tr>
+			<td>Name: <%= @cat.name%></td>
+			<td>Color: <%= @cat.color%></td>
+			<td>Age: <%= @cat.age%></td>
+			<td>Sex: <%= @cat.sex%></td>
+			<td>Birthdate: <%= Date.parse(@cat.birthdate) %></td>
+		</tr>
+		<% @rental_requests.each do |req| %>
+		<tr>
+			<td><%= req.cat.name%> requested from <%= req.start_date %> to <%= req.end_date %>.
+			</td>
+			<td>This request is: <%= req.status %>. </td>
+			<td><%= button_to "Approve", req.approve! %> </td>
+			<td><%= button_to "Deny", req.deny! %> </td>
+		</tr>
+		<% end %>
+	</table>
+	<p><%= link_to "Edit this cat!", edit_cat_url(@cat) %></p>
+</body>
+

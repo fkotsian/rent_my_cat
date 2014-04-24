@@ -1,0 +1,31 @@
+<head>
+	<title>
+		Rentals
+	</title>
+</head>
+<body>
+	<p><%= link_to ("Back to the Rental index"), "/rentals"  %><p>
+	<h1><%=@cat_rental_request.id %></h1>
+		<form action="/cat_rental_requests/<%=@cat_rental_request.id%>" method="POST">
+		<% if @cat_rental_request.persisted? %>
+    	<input type="hidden" name="_method" value="PATCH" >
+		<% end %>
+			<label for="rental_name">Select your Cat: </label>
+			<select name="rental[cat_id]">
+				<% @cats.each do |cat| %>
+				<option name="rental[cat_id]" value="<%= cat.id %>" >
+					"<%= cat.name %>"
+				</option>
+				<% end %>
+			</select>
+
+			<label for="rental_start_date">When do you want to rent from?</label>
+			<input type="date" name="rental[start_date]" >
+
+			<label for="rental_end_date">When do you want to rent until?</label>
+			<input type="date" name="rental[end_date]" >
+
+
+			<input type="submit" value:"Rent this cat!">
+		</form>
+</body>

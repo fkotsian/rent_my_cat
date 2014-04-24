@@ -1,0 +1,21 @@
+<!-- ><head>
+	<title>
+		Cats | Show
+	</title>
+</head>
+<body>
+	<h1>This is the Show view</h1>
+	<p><%= link_to ("Back to the cats request index"), "/cat_rental_requests"  %><p>
+	<table>
+		<tr>
+			<td>Name: <%= @cat_rental_request.name%></td>
+			<td>Color: <%= @cat_rental_request.color%></td>
+			<td>Age: <%= @cat_rental_request.age%></td>
+			<td>Sex: <%= @cat_rental_request.sex%></td>
+			<td>Birthdate: <%= Date.parse(@cat_rental_request.birthdate) %></td>
+		</tr>
+	</table>
+	<p><%= link_to "Edit this cat!", edit_cat_url(@cat_rental_request) %></p>
+</body>
+
+-->
