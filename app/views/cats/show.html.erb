@@ -19,8 +19,8 @@
 			<td><%= req.cat.name%> requested from <%= req.start_date %> to <%= req.end_date %>.
 			</td>
 			<td>This request is: <%= req.status %>. </td>
-			<td><%= button_to "Approve", req.approve! %> </td>
-			<td><%= button_to "Deny", req.deny! %> </td>
+			<td><%= button_to "Approve", approve_request_path(req), method: "patch"%> </td>
+			<td><%= button_to "Deny", deny_request_path(req), method: "patch" %> </td>
 		</tr>
 		<% end %>
 	</table>
