@@ -34,7 +34,7 @@ class CatRentalRequest < ActiveRecord::Base
   def overlapping_approved_requests
     requests = overlapping_requests
     approved_overlapping_requests = requests.select do |req|
-      req.status == "APPROVED"
+      req.status == "APPROVED" && self.id != req.id
     end
 
     if approved_overlapping_requests.length > 0

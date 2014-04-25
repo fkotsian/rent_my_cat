@@ -10,6 +10,11 @@
 		<% if @cat.persisted? %>
     	<input type="hidden" name="_method" value="PATCH" >
 		<% end %>
+
+		<input type="hidden"
+					 name="authenticity_token"
+					 value="<%= form_authenticity_token %>" >
+
 			<label for="cat_name">Name</label>
 			<input type="text" name="cat[name]" value="<%= @cat.name %>" >
 
@@ -35,3 +40,6 @@
 			<input type="submit" value:"Edit this cat!">
 		</form>
 </body>
+
+
+<!-- current_user.user_name -->

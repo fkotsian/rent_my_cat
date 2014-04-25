@@ -1,11 +1,13 @@
 class CatsController < ApplicationController
 
+  before_action :ensure_is_owner, only: [:edit, :update]
+
   def index
     @cats = Cat.all
   end
 
   def show
-    @rental_requests = CatRentalRequest.where(id: params[:id])
+    @rental_requests = CatRentalRequest.where(cat_id: params[:id])
     @cat = Cat.find(params[:id])
   end
 
@@ -15,6 +17,9 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    p = current_user.id
+    @cat.user_id = current_user.id
+
     if @cat.save
       redirect_to "/cats"
     else
@@ -39,6 +44,11 @@ class CatsController < ApplicationController
   private
   def cat_params
     params.require(:cat).permit(:name, :color, :age, :birthdate, :sex)
+  end
+
+  def ensure_is_owner
+    flash[:errors] = "You don't own that cat!"
+    redirect_to cats_url if Cat.find(params[:id]).user_id != current_user.id
   end
 
 end

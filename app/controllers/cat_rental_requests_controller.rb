@@ -1,5 +1,7 @@
 class CatRentalRequestsController < ApplicationController
 
+  before_action :ensure_is_owner, only: [:approve, :deny]
+
   def index
     @cat_rental_requests = CatRentalRequest.all
   end
@@ -56,5 +58,9 @@ class CatRentalRequestsController < ApplicationController
     params.require(:rental).permit(:cat_id, :start_date, :end_date, :status)
   end
 
+  def ensure_is_owner
+    flash[:errors] = "You can't approve or deny rentals for cats you don't own."
+    redirect_to cats_url if Cat.find(params[:id]).user_id != current_user.id
+  end
 
 end

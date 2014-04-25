@@ -6,6 +6,14 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<% if current_user %>
+	<%= "Welcome, #{current_user.user_name}!" %>
+	<%= button_to "Log out", sessions_url, method: :delete %>
+<% else %>
+  <%= link_to "Sign in to view more Cats!", new_sessions_url %>
+<% end %>
+
+<%= "HEY!: #{flash[:errors]}" if flash[:errors].present? %>
 
 <%= yield %>
 

@@ -1,29 +1,42 @@
-<head>
-	<title>
-		Cats | Show
-	</title>
-</head>
-<body>
-	<h1>This is the Show view</h1>
-	<p><%= link_to ("Back to the cats index"), "/cats"  %><p>
-	<table>
-		<tr>
-			<td>Name: <%= @cat.name%></td>
-			<td>Color: <%= @cat.color%></td>
-			<td>Age: <%= @cat.age%></td>
-			<td>Sex: <%= @cat.sex%></td>
-			<td>Birthdate: <%= Date.parse(@cat.birthdate) %></td>
-		</tr>
-		<% @rental_requests.each do |req| %>
-		<tr>
-			<td><%= req.cat.name%> requested from <%= req.start_date %> to <%= req.end_date %>.
-			</td>
-			<td>This request is: <%= req.status %>. </td>
-			<td><%= button_to "Approve", approve_request_path(req), method: "patch"%> </td>
-			<td><%= button_to "Deny", deny_request_path(req), method: "patch" %> </td>
-		</tr>
+<h1>This is the Show view</h1>
+<p><%= link_to ("Back to the cats index"), "/cats"  %><p>
+<table>
+	<tr>
+		<!-- name -->
+		<td>Name: <%= @cat.name%></td>
+		<!-- color -->
+		<td>Color: <%= @cat.color%></td>
+		<!-- age -->
+		<td>Age: <%= @cat.age%></td>
+		<!-- sex -->
+		<td>Sex: <%= @cat.sex%></td>
+		<!-- birthdate -->
+		<td>Birthdate: <%= Date.parse(@cat.birthdate) %></td>
+		<!-- cat owner -->
+		<td>Owner Name: <%= @cat.user_id.nil? ? "I have no owner" : User.find_by_id(@cat.user_id).user_name %></td>
+
+	</tr>
+	<% @rental_requests.each do |req| %>
+	<tr>
+		<td>
+			<%= req.cat.name %> requested from <%= req.start_date %> to <%= req.end_date %>.
+		</td>
+		<td>This request is: <%= req.status %>. </td>
+
+		<% if current_user.present? && current_user.id == @cat.user_id %>
+		<td><%= button_to "Approve", approve_request_path(req),
+																											method: "patch" %> </td>
+		<td><%= button_to "Deny", deny_request_path(req), method: "patch" %> </td>
 		<% end %>
-	</table>
-	<p><%= link_to "Edit this cat!", edit_cat_url(@cat) %></p>
-</body>
+	</tr>
+	<% end %>
+</table>
+
+<p>
+	<%= link_to "Rent this cat!", new_cat_rental_request_url if current_user.present? %>
+</p>
+<p>
+	<%= link_to "Edit this cat!", edit_cat_url(@cat) if current_user.present? && current_user.id == @cat.user_id %>
+</p>
+
 

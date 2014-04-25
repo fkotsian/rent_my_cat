@@ -1,9 +1,9 @@
 Cats::Application.routes.draw do
 
   resources :cats
-  resources :cat_rental_requests do
-
-  end
+  resources :cat_rental_requests
+  resources :users, only: [:new, :create]
+  resource  :sessions
 
   match '/cats_rental_request/:id/approve', to: 'cat_rental_requests#approve', via: [:patch], as: 'approve_request'
 
